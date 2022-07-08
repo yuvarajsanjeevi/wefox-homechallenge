@@ -68,3 +68,21 @@ services:
     depends_on:
       - postgress
       - kafka-server
+
+  payment-services:
+    build: ./PaymentService
+    ports:
+      - 8000:8000
+    networks:
+        - kafka-net
+    environment:
+      DB_HOST: postgress
+      DB_PORT: 5432
+      DB_USERNAME: tech
+      DB_PASSWORD: test
+      DB_NAME: payments
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: "kafka-server:9092"
+    depends_on:
+      - postgress
+      - kafka-server
+      - api-producer
