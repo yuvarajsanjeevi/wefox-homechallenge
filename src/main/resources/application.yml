@@ -1,0 +1,36 @@
+# Database variables
+dbHost: localhost
+dbPort: 5432
+dbUsername: tech
+dbPassword: test
+dbName: payments
+
+spring:
+  application:
+    name: payment-services
+  datasource:
+    url: jdbc:postgresql://${dbHost}:${dbPort}/${dbName}
+    username: ${dbUsername}
+    password: ${dbPassword}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: 'true'
+
+  kafka:
+    bootstrap-servers: "localhost:9092"
+    topic:
+      online-payment: online
+      offline-payment: offline
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: "payments"
+      max-poll-records: 200
+      
+api-url: "http://localhost:8080"
+server:
+  port: 8000
