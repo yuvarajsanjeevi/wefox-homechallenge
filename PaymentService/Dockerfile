@@ -1,12 +1,12 @@
 FROM maven:3.6.3-jdk-11 as build
 COPY src /usr/src/app/src
 COPY pom.xml /usr/src/app
-RUN mvn -f /usr/src/app/pom.xml clean package
+RUN mvn -f /usr/src/app/pom.xml clean package -DskipTests=true
 
 
 FROM openjdk:11.0.15-jre-slim
 ENV APP_USER java
-RUN adduser -D -g '' $APP_USER
+RUN adduser --disabled-password --gecos '' $APP_USER
 
 COPY --from=build /usr/src/app/target/payment-services.jar app.jar
 RUN sh -c 'touch /app.jar'
