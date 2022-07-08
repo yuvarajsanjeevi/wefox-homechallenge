@@ -14,9 +14,9 @@ To start the services run `docker-compose up -d`
 
 * Spring Kafka is used to create the consumer and listen the data published into the topics `online` and `offline`
 * Feign client is used to communicate with API service for `Payment Validation` and `Logging`
+* Added 2 partitions for kafka topics `online` and `offline` with 2 consumers
 
 ## :pushpin: Things to improve
 
 * Create multiple partitions to improve the parallel processing and performance 
 * Mount volumes for kafka server, Zookeeper and Postgress to avoid loss of data
-* 
